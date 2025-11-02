@@ -5,6 +5,8 @@ const app = express()
 const errorHandler = require('./src/middlewares/errorHandler');
 const router = require('./src/routes/index');
 const cors = require('cors')
+const swaggerUI = require('swagger-ui-express');
+const swaggerDocs = require('./src/config/swagger.config');
 
 //middleware
 app.use(express.json());
@@ -24,6 +26,8 @@ app.get('/',(req,res)=>{
         message: "Welcome to note management server!"
     })
 })
+
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs))
 
 app.use(errorHandler);
 
